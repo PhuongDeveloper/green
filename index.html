@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GreenHabit-AI - Xây Dựng Thói Quen Bền Vững. Được Phát Triển Bởi AI.</title>
+    <meta name="description" content="GreenHabit-AI giúp cá nhân biến những hành động xanh hàng ngày thành tác động đo lường được và phần thưởng.">
+
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <!-- Tailwind Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                    colors: {
+                        'green-dark': '#0f172a',
+                        'green-primary': '#16a34a',
+                        'green-light': '#dcfce7',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<body class="bg-white text-gray-900 font-sans antialiased">
+    <!-- Header -->
+    <header id="header" class="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-sm border-b border-gray-100 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <h1 class="text-xl font-semibold text-gray-900 tracking-tight">GreenHabit-AI</h1>
+                </div>
+
+                <!-- Navigation -->
+                <nav class="hidden md:flex items-center space-x-8">
+                    <a href="#app" class="text-gray-600 hover:text-gray-900 transition-colors duration-200 text-sm font-medium">Ứng dụng</a>
+                    <a href="#download" class="text-gray-600 hover:text-gray-900 transition-colors duration-200 text-sm font-medium">Tải xuống</a>
+                    <a href="#docs" class="text-gray-600 hover:text-gray-900 transition-colors duration-200 text-sm font-medium">Tài liệu</a>
+                    <a href="#contact" class="text-gray-600 hover:text-gray-900 transition-colors duration-200 text-sm font-medium">Liên hệ</a>
+                </nav>
+
+                <!-- Mobile menu button -->
+                <button class="md:hidden p-2" id="mobile-menu-button">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile menu -->
+        <div class="md:hidden hidden bg-white border-b border-gray-100" id="mobile-menu">
+            <div class="px-6 py-4 space-y-4">
+                <a href="#app" class="block text-gray-600 hover:text-gray-900 transition-colors duration-200 text-sm font-medium">Ứng dụng</a>
+                <a href="#download" class="block text-gray-600 hover:text-gray-900 transition-colors duration-200 text-sm font-medium">Tải xuống</a>
+                <a href="#docs" class="block text-gray-600 hover:text-gray-900 transition-colors duration-200 text-sm font-medium">Tài liệu</a>
+                <a href="#contact" class="block text-gray-600 hover:text-gray-900 transition-colors duration-200 text-sm font-medium">Liên hệ</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="pt-32 pb-20 bg-white">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="text-center max-w-4xl mx-auto hero-content">
+                <!-- Headline -->
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 tracking-tight">
+                    Xây dựng thói quen bền vững.
+                    <span class="text-green-primary">Bằng công nghệ AI</span>
+                </h1>
+
+                <!-- Subtext -->
+                <p class="text-xl text-gray-600 mb-12 max-w-2xl mx-auto leading-relaxed">
+                    GreenHabit-AI giúp cá nhân biến những hành động xanh hàng ngày thành tác động đo lường được và phần thưởng.
+                </p>
+
+                <!-- CTA Buttons -->
+                <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                    <button class="group bg-green-primary text-white px-8 py-3 rounded-lg font-medium hover:bg-green-600 transition-colors duration-200">
+                        <div class="flex items-center gap-2">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M17.523 15.3414c-.5511 0-.9993-.4482-.9993-.9993s.4482-.9993.9993-.9993.9993.4482.9993.9993-.4483.9993-.9993.9993zm-11.046 0c-.5511 0-.9993-.4482-.9993-.9993s.4482-.9993.9993-.9993.9993.4482.9993.9993-.4482.9993-.9993.9993zm11.046-5.9983c-.5511 0-.9993-.4482-.9993-.9993v-4.4968c0-.5511.4482-.9993.9993-.9993s.9993.4482.9993.9993v4.4968c0 .5511-.4483.9993-.9993.9993zm-11.046 0c-.5511 0-.9993-.4482-.9993-.9993v-4.4968c0-.5511.4482-.9993.9993-.9993s.9993.4482.9993.9993v4.4968c0 .5511-.4482.9993-.9993.9993zm0-6.4981c-.5511 0-.9993-.4482-.9993-.9993s.4482-.9993.9993-.9993.9993.4482.9993.9993-.4482.9993-.9993.9993zm11.046 0c-.5511 0-.9993-.4482-.9993-.9993s.4482-.9993.9993-.9993.9993.4482.9993.9993-.4483.9993-.9993.9993zM21.9927 7.3414v10.6828c0 1.6541-1.3452 2.9993-2.9993 2.9993H4.006c-1.6541 0-2.9993-1.3452-2.9993-2.9993V7.3414c0-1.6541 1.3452-2.9993 2.9993-2.9993h14.9874c1.6541 0 2.9993 1.3452 2.9993 2.9993zm-1.9986 0c0-.5511-.4482-.9993-.9993-.9993H4.006c-.5511 0-.9993.4482-.9993.9993v10.6828c0 .5511.4482.9993.9993.9993h14.9874c.5511 0 .9993-.4482.9993-.9993V7.3414z"/>
+                            </svg>
+                            Tải cho Android
+                        </div>
+                    </button>
+                    <button class="group border border-gray-200 text-gray-700 px-8 py-3 rounded-lg font-medium hover:bg-gray-50 hover:border-gray-300 transition-colors duration-200">
+                        <div class="flex items-center gap-2">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+                            </svg>
+                            Tải cho iOS
+                        </div>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Proof Section -->
+    <section class="py-16 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+                <!-- Users Counter -->
+                <div class="text-center social-proof-item">
+                    <div class="text-4xl md:text-5xl font-bold text-gray-900 mb-2 counter" data-target="500">0</div>
+                    <div class="text-lg text-gray-600 mb-1">+</div>
+                    <div class="text-sm text-gray-500">Người dùng đã tham gia</div>
+                </div>
+
+                <!-- Rating Counter -->
+                <div class="text-center social-proof-item">
+                    <div class="flex items-center justify-center gap-1 mb-2">
+                        <svg class="w-8 h-8 text-yellow-400" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                        </svg>
+                        <svg class="w-8 h-8 text-yellow-400" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                        </svg>
+                        <svg class="w-8 h-8 text-yellow-400" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                        </svg>
+                        <svg class="w-8 h-8 text-yellow-400" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                        </svg>
+                        <svg class="w-8 h-8 text-yellow-400" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                        </svg>
+                    </div>
+                    <div class="text-4xl md:text-5xl font-bold text-gray-900 mb-2 counter" data-target="5">0</div>
+                    <div class="text-sm text-gray-500">Đánh giá trung bình</div>
+                </div>
+
+                <!-- Green Points Counter -->
+                <div class="text-center social-proof-item">
+                    <div class="text-4xl md:text-5xl font-bold text-green-primary mb-2 counter" data-target="1000000">0</div>
+                    <div class="text-sm text-gray-500">Điểm xanh đã tạo ra</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Download Section -->
+    <section id="download" class="py-16 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                <!-- Android Download -->
+                <div class="bg-white p-8 rounded-lg border border-gray-200 download-card">
+                    <div class="flex items-start gap-4">
+                        <div class="w-12 h-12 bg-green-light rounded-lg flex items-center justify-center">
+                            <svg class="w-6 h-6 text-green-primary" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M17.523 15.3414c-.5511 0-.9993-.4482-.9993-.9993s.4482-.9993.9993-.9993.9993.4482.9993.9993-.4483.9993-.9993.9993zm-11.046 0c-.5511 0-.9993-.4482-.9993-.9993s.4482-.9993.9993-.9993.9993.4482.9993.9993-.4482.9993-.9993.9993zm11.046-5.9983c-.5511 0-.9993-.4482-.9993-.9993v-4.4968c0-.5511.4482-.9993.9993-.9993s.9993.4482.9993.9993v4.4968c0 .5511-.4483.9993-.9993.9993zm-11.046 0c-.5511 0-.9993-.4482-.9993-.9993v-4.4968c0-.5511.4482-.9993.9993-.9993s.9993.4482.9993.9993v4.4968c0 .5511-.4482.9993-.9993.9993zm0-6.4981c-.5511 0-.9993-.4482-.9993-.9993s.4482-.9993.9993-.9993.9993.4482.9993.9993-.4482.9993-.9993.9993zm11.046 0c-.5511 0-.9993-.4482-.9993-.9993s.4482-.9993.9993-.9993.9993.4482.9993.9993-.4483.9993-.9993.9993zM21.9927 7.3414v10.6828c0 1.6541-1.3452 2.9993-2.9993 2.9993H4.006c-1.6541 0-2.9993-1.3452-2.9993-2.9993V7.3414c0-1.6541 1.3452-2.9993 2.9993-2.9993h14.9874c1.6541 0 2.9993 1.3452 2.9993 2.9993zm-1.9986 0c0-.5511-.4482-.9993-.9993-.9993H4.006c-.5511 0-.9993.4482-.9993.9993v10.6828c0 .5511.4482.9993.9993.9993h14.9874c.5511 0 .9993-.4482.9993-.9993V7.3414z"/>
+                            </svg>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="text-lg font-semibold text-gray-900 mb-2">Android</h3>
+                            <div class="text-sm text-gray-600 space-y-1 mb-4">
+                                <p>Yêu cầu Android 8.0+</p>
+                                <p>Kích thước: 45.2 MB</p>
+                            </div>
+                            <a href="https://drive.google.com/file/d/1oPQ3VlASugLm8ElUpEGw4peWOmMpwgfD/view?usp=sharing" target="_blank" class="block w-full">
+                                <button class="w-full bg-gray-900 text-white px-4 py-2 rounded font-medium hover:bg-gray-800 transition-colors duration-200 text-sm">
+                                    Tải APK từ Google Drive
+                                </button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- iOS Download -->
+                <div class="bg-white p-8 rounded-lg border border-gray-200 download-card">
+                    <div class="flex items-start gap-4">
+                        <div class="w-12 h-12 bg-green-light rounded-lg flex items-center justify-center">
+                            <svg class="w-6 h-6 text-green-primary" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+                            </svg>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="text-lg font-semibold text-gray-900 mb-2">iOS</h3>
+                            <div class="text-sm text-gray-600 space-y-1 mb-4">
+                                <p>Yêu cầu iOS 13.0+</p>
+                                <p>Kích thước: 78.4 MB</p>
+                            </div>
+                            <a href="https://testflight.apple.com/join/X9dMbc2g" target="_blank" class="block w-full">
+                                <button class="w-full bg-gray-900 text-white px-4 py-2 rounded font-medium hover:bg-gray-800 transition-colors duration-200 text-sm">
+                                    Tham gia TestFlight
+                                </button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Installation Guide Section -->
+    <section class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">Hướng dẫn cài đặt</h2>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+                <!-- Android Guide -->
+                <div class="bg-gray-50 p-6 rounded-lg guide-card">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Cài đặt Android</h3>
+                    <a href="https://youtu.be/lrkbNNlpQzo?si=ItCNrgJp_KwDYhOh" target="_blank" class="block group">
+                        <div class="aspect-video bg-gray-200 rounded-lg overflow-hidden relative hover:shadow-lg transition-shadow duration-300">
+                            <img
+                                src="https://img.youtube.com/vi/lrkbNNlpQzo/maxresdefault.jpg"
+                                alt="Hướng dẫn cài đặt GreenHabit-AI trên Android"
+                                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                                loading="lazy"
+                                onerror="this.src='https://img.youtube.com/vi/lrkbNNlpQzo/hqdefault.jpg'"
+                            />
+                            <div class="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center group-hover:bg-opacity-20 transition-all duration-300">
+                                <div class="bg-red-600 rounded-full p-4 shadow-lg group-hover:bg-red-700 transition-colors duration-300">
+                                    <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M8 5v14l11-7z"/>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="absolute bottom-2 right-2 bg-black bg-opacity-80 text-white text-xs px-2 py-1 rounded">
+                                Video
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- iOS Guide -->
+                <div class="bg-gray-50 p-6 rounded-lg guide-card">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Cài đặt iOS</h3>
+                    <a href="https://youtu.be/18ZyDUL4Prs?si=_G1jKUeGxQfsSR_9" target="_blank" class="block group">
+                        <div class="aspect-video bg-gray-200 rounded-lg overflow-hidden relative hover:shadow-lg transition-shadow duration-300">
+                            <img
+                                src="https://img.youtube.com/vi/18ZyDUL4Prs/maxresdefault.jpg"
+                                alt="Hướng dẫn cài đặt GreenHabit-AI trên iOS"
+                                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                                loading="lazy"
+                                onerror="this.src='https://img.youtube.com/vi/18ZyDUL4Prs/hqdefault.jpg'"
+                            />
+                            <div class="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center group-hover:bg-opacity-20 transition-all duration-300">
+                                <div class="bg-red-600 rounded-full p-4 shadow-lg group-hover:bg-red-700 transition-colors duration-300">
+                                    <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M8 5v14l11-7z"/>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="absolute bottom-2 right-2 bg-black bg-opacity-80 text-white text-xs px-2 py-1 rounded">
+                                Video
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Product Section -->
+    <section id="about" class="py-16 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="max-w-4xl mx-auto">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">Về GreenHabit-AI</h2>
+            </div>
+
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="space-y-6">
+                        <div class="about-item">
+                            <h3 class="text-lg font-semibold text-gray-900 mb-2">Phân tích thói quen bằng AI</h3>
+                            <p class="text-gray-600">Thuật toán học máy tiên tiến theo dõi và phân tích các mẫu hành vi của người dùng để cung cấp những hiểu biết và khuyến nghị cá nhân hóa.</p>
+                        </div>
+
+                        <div class="about-item">
+                            <h3 class="text-lg font-semibold text-gray-900 mb-2">Hành động xanh có thể xác minh</h3>
+                            <p class="text-gray-600">Mọi hành động môi trường đều được xác minh thông qua các cảm biến tích hợp và xác thực bên thứ ba để đảm bảo tính xác thực và đo lường tác động.</p>
+                        </div>
+                    </div>
+
+                    <div class="space-y-6">
+                        <div class="about-item">
+                            <h3 class="text-lg font-semibold text-gray-900 mb-2">Hệ thống phần thưởng được hỗ trợ bởi đối tác</h3>
+                            <p class="text-gray-600">Nhận phần thưởng từ các thương hiệu và tổ chức tập trung vào tính bền vững hỗ trợ các sáng kiến môi trường thực tế.</p>
+                        </div>
+
+                        <div class="about-item">
+                            <h3 class="text-lg font-semibold text-gray-900 mb-2">Kiến trúc ưu tiên quyền riêng tư</h3>
+                            <p class="text-gray-600">Được xây dựng với mã hóa đầu cuối và thu thập dữ liệu tối thiểu, đảm bảo quyền riêng tư của người dùng đồng thời duy trì đầy đủ chức năng.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-gray-100 py-8">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">GreenHabit-AI</h3>
+                    <p class="text-sm text-gray-600">Xây dựng thói quen bền vững. Được phát triển bởi AI.</p>
+                </div>
+
+                <div>
+                    <h4 class="text-sm font-semibold text-gray-900 mb-3">Sản phẩm</h4>
+                    <ul class="space-y-2 text-sm text-gray-600">
+                        <li><a href="#" class="hover:text-gray-900 transition-colors">Tính năng</a></li>
+                        <li><a href="#" class="hover:text-gray-900 transition-colors">Bảo mật</a></li>
+                        <li><a href="#" class="hover:text-gray-900 transition-colors">Quyền riêng tư</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-sm font-semibold text-gray-900 mb-3">Hỗ trợ</h4>
+                    <ul class="space-y-2 text-sm text-gray-600">
+                        <li><a href="#" class="hover:text-gray-900 transition-colors">Tài liệu</a></li>
+                        <li><a href="#" class="hover:text-gray-900 transition-colors">Trung tâm trợ giúp</a></li>
+                        <li><a href="#" class="hover:text-gray-900 transition-colors">Liên hệ</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-sm font-semibold text-gray-900 mb-3">Công ty</h4>
+                    <ul class="space-y-2 text-sm text-gray-600">
+                        <li><a href="#" class="hover:text-gray-900 transition-colors">Giới thiệu</a></li>
+                        <li><a href="#" class="hover:text-gray-900 transition-colors">Blog</a></li>
+                        <li><a href="#" class="hover:text-gray-900 transition-colors">Tuyển dụng</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-100 mt-8 pt-8 text-center text-sm text-gray-600">
+                <p>&copy; 2026 một sản phẩm của WolTeam. </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('header');
+            if (window.scrollY > 10) {
+                header.classList.add('shadow-sm');
+            } else {
+                header.classList.remove('shadow-sm');
+            }
+        });
+
+        // GSAP animations
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Hero section fade in
+        gsap.from('.hero-content', {
+            opacity: 0,
+            y: 20,
+            duration: 0.6,
+            delay: 0.1
+        });
+
+        // Download section fade in
+        gsap.from('.download-card', {
+            opacity: 0,
+            y: 15,
+            duration: 0.5,
+            stagger: 0.05,
+            scrollTrigger: {
+                trigger: '#download',
+                start: 'top 85%'
+            }
+        });
+
+        // Installation guides fade in
+        gsap.from('.guide-card', {
+            opacity: 0,
+            y: 12,
+            duration: 0.5,
+            stagger: 0.05,
+            scrollTrigger: {
+                trigger: '.guide-card',
+                start: 'top 85%'
+            }
+        });
+
+        // About section fade in
+        gsap.from('.about-item', {
+            opacity: 0,
+            y: 10,
+            duration: 0.4,
+            stagger: 0.03,
+            scrollTrigger: {
+                trigger: '#about',
+                start: 'top 85%'
+            }
+        });
+
+        // Social proof counters animation
+        gsap.from('.social-proof-item', {
+            opacity: 0,
+            y: 15,
+            duration: 0.5,
+            stagger: 0.1,
+            scrollTrigger: {
+                trigger: '.social-proof-item',
+                start: 'top 85%'
+            }
+        });
+
+        // Animated counter function
+        function animateCounter(element, target, duration = 2000) {
+            let start = 0;
+            const increment = target / (duration / 16); // 60fps
+            const timer = setInterval(() => {
+                start += increment;
+                if (start >= target) {
+                    element.textContent = target.toLocaleString();
+                    clearInterval(timer);
+                } else {
+                    element.textContent = Math.floor(start).toLocaleString();
+                }
+            }, 16);
+        }
+
+        // Trigger counters when they come into view
+        const counterObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const counter = entry.target;
+                    const target = parseInt(counter.dataset.target);
+                    animateCounter(counter, target);
+                    counterObserver.unobserve(counter);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        // Observe all counters
+        document.querySelectorAll('.counter').forEach(counter => {
+            counterObserver.observe(counter);
+        });
+    </script>
+</body>
+</html>
