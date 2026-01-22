@@ -190,7 +190,7 @@
                                 <p>Yêu cầu Android 8.0+</p>
                                 <p>Kích thước: 45.2 MB</p>
                             </div>
-                            <a href="https://drive.google.com/file/d/1oPQ3VlASugLm8ElUpEGw4peWOmMpwgfD/view?usp=sharing" target="_blank" class="block w-full">
+                            <a href="https://drive.google.com/file/d/1iSoq6rumgEilHj611m8HMvAVJygCsauG/view?usp=sharing" target="_blank" class="block w-full">
                                 <button class="w-full bg-gray-900 text-white px-4 py-2 rounded font-medium hover:bg-gray-800 transition-colors duration-200 text-sm">
                                     Tải APK từ Google Drive
                                 </button>
@@ -284,6 +284,40 @@
                         </div>
                     </a>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Login Guide Section -->
+    <section class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 login-guide-content">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">Hướng dẫn đăng nhập</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">Xem video hướng dẫn chi tiết cách đăng nhập và sử dụng GreenHabit-AI</p>
+            </div>
+
+            <div class="max-w-4xl mx-auto">
+                <a href="https://youtu.be/9k4uLZibu_Q?si=E9jPDinqnbSm6KKp" target="_blank" class="block group">
+                    <div class="aspect-video bg-gray-200 rounded-lg overflow-hidden relative hover:shadow-xl transition-shadow duration-300">
+                        <img
+                            src="https://img.youtube.com/vi/9k4uLZibu_Q/maxresdefault.jpg"
+                            alt="Hướng dẫn đăng nhập GreenHabit-AI"
+                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                            loading="lazy"
+                            onerror="this.src='https://img.youtube.com/vi/9k4uLZibu_Q/hqdefault.jpg'"
+                        />
+                        <div class="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center group-hover:bg-opacity-20 transition-all duration-300">
+                            <div class="bg-red-600 rounded-full p-6 shadow-lg group-hover:bg-red-700 transition-colors duration-300">
+                                <svg class="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M8 5v14l11-7z"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="absolute bottom-3 right-3 bg-black bg-opacity-80 text-white text-sm px-3 py-1 rounded">
+                            Hướng dẫn đăng nhập
+                        </div>
+                    </div>
+                </a>
             </div>
         </div>
     </section>
@@ -426,6 +460,17 @@
             stagger: 0.05,
             scrollTrigger: {
                 trigger: '.guide-card',
+                start: 'top 85%'
+            }
+        });
+
+        // Login guide section fade in
+        gsap.from('.login-guide-content', {
+            opacity: 0,
+            y: 20,
+            duration: 0.6,
+            scrollTrigger: {
+                trigger: '.login-guide-content',
                 start: 'top 85%'
             }
         });
